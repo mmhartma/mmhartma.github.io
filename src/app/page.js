@@ -1,103 +1,77 @@
-import Image from "next/image";
+"use client";
+
+import Background from "./background";
+
+import { useState } from "react"
+
+import { Eye, EyeClosed, Plus, Minus, Mail, Phone, Linkedin, Github } from 'lucide-react';
+
+const CHAPTERS = ["High School", "Erie Community College", "University at Buffalo", "Future"]
+const DESCRIPTIONS = {
+  "High School": "s",
+  "Erie Community College": "s",
+  "University at Buffalo": "s",
+  "Future": "s",
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  let [visible, setVisibility] = useState(true)
+  let [chapter, setChapter] = useState(null)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div class="relative">
+      <Background class="absolute inset-0" />
+      <button class="absolute right-5 top-5 z-50" onClick={()=>{
+        setVisibility(!visible)
+      }}>
+        { visible ? <Eye size={32}/> : <EyeClosed size={32}/>}
+      </button>
+      <div class="flex py-12 justify-center min-h-screen relative" style={{visibility: visible ? 'visible' : 'hidden' }}>
+        <div class="w-3/4 p-12 border border-gray-200 rounded-lg shadow-sm dark:bg-blue-900/80 dark:border-white-700">
+          <h1 class="mb-2 text-5xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Marcus Hartman</h1>
+          <p class="text-3xl p-8 font-normal text-center text-gray-700 dark:text-gray-100">cool one liner</p>
+          <div class="flex justify-center space-x-6 mt-4">
+            <a href="mailto:marcushartman795@gmail.com" class="border-white border-4 rounded p-1 hover:bg-white">
+              <Mail/>
+            </a>
+            <a href="tel:+17169970154" class="border-white border-4 rounded p-1 hover:bg-white">
+              <Phone/>
+            </a>
+            <a href="https://github.com/mmhartma" target="_blank" class="ml-8 border-white border-4 rounded p-1 hover:bg-white">
+              <Github/>
+            </a>
+            <a href="https://www.linkedin.com/in/mmhartma/" target="_blank" class="border-white border-4 rounded p-1 hover:bg-white">
+              <Linkedin/>
+            </a> 
+          </div>
+          <hr class="my-8"/>
+
+
+          <p class="text-4xl font-normal text-center text-gray-700 pb-8 dark:text-white">My Journey (So Far)</p>
+
+
+          {
+            CHAPTERS.map((c) => {
+              return(
+                <div class="bg-gray-900 p-4 rounded-xl mb-4">
+                  <div class="flex justify-between items-center cursor-pointer" onClick={() => {
+                    setChapter(chapter == c ? null : c)
+                  }}>
+                    <h3 class="text-xl font-semibold">{c}</h3>
+                    { chapter == c ? <Minus size={24}/> : <Plus size={24}/> }
+                    
+                  </div>
+                  { chapter == c && (
+                      <p class="mt-3 text-gray-300 transition-all duration-3000 ease-in-out">{DESCRIPTIONS[c]}</p>
+                    )}
+              </div>
+              )
+            })
+          }
+          
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
+    
   );
 }
