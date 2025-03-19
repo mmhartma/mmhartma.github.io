@@ -7,8 +7,8 @@ const LINE_COLOR = "#3498db"
 const NODE_COLOR = "#bbbbbb"
 
 // Initialization
-const NUM_NODES_MIN = 45
-const NUM_NODES_MAX = 70
+const NUM_NODES_MIN = 25
+const NUM_NODES_MAX = 40
 const NUM_NODES = Math.floor(Math.random() * (NUM_NODES_MAX - NUM_NODES_MIN) + NUM_NODES_MIN);
 
 const NODE_DIAMETER = 10;
