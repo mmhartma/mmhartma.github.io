@@ -12,21 +12,21 @@ const NUM_NODES_MAX = 40
 const NUM_NODES = Math.floor(Math.random() * (NUM_NODES_MAX - NUM_NODES_MIN) + NUM_NODES_MIN);
 
 const NODE_DIAMETER = 10;
-const NODE_MAX_DIST = 330;
+const NODE_MAX_DIST = 200;
 
 // Updating 
 const EDGE_PADDING = 5;
-const MAX_VELOCITY = 3;
+const MAX_VELOCITY = 80;
 const DRAG = 0.00;
 
 // Gravity (decided higher constant of G for easier computation)
-const GRAVITY_ON = true
+const GRAVITY_ON = false
 const G = 6.67e-2// -11 irl
 const MIN_MASS = 50
 const MAX_MASS = 50
 
 // Interaction
-const MOUSE_PUSH_POWER = 4;
+const MOUSE_PUSH_POWER = 150;
 
 // Utility
 const FRAMES_PER_SECOND = 60;
@@ -50,14 +50,16 @@ function generatePoints(width, height) {
 }
 
 function connectPoints(points) {
+    let now = new Date()
+    let dt =  (now - lastUpdated) / 1000
 
     let pairs = []
     for (let p1 = 0; p1 < points.length; p1++) {
         for (let p2 = p1 + 1; p2 < points.length; p2++) { // Skip duplicates
-            let p1_x = points[p1].pos.x + (NODE_DIAMETER / 2) + (points[p1].vel.x / 2);
-            let p1_y = points[p1].pos.y + (NODE_DIAMETER / 2) + (points[p1].vel.y / 2);
-            let p2_x = points[p2].pos.x + (NODE_DIAMETER / 2) + (points[p2].vel.x / 2);
-            let p2_y = points[p2].pos.y + (NODE_DIAMETER / 2) + (points[p2].vel.y / 2);
+            let p1_x = points[p1].pos.x + (NODE_DIAMETER / 2) + (points[p1].vel.x / 2) * dt;
+            let p1_y = points[p1].pos.y + (NODE_DIAMETER / 2) + (points[p1].vel.y / 2) * dt;
+            let p2_x = points[p2].pos.x + (NODE_DIAMETER / 2) + (points[p2].vel.x / 2) * dt;
+            let p2_y = points[p2].pos.y + (NODE_DIAMETER / 2) + (points[p2].vel.y / 2) * dt;
 
             let line = [p1_x, p1_y, p2_x, p2_y]
             pairs.push({
@@ -91,7 +93,7 @@ function updatePoints(points, lines, dimensions) {
                     if (line.p2 == point) { otherPoint = line.p1 }
                     if (otherPoint == undefined) continue // No match
 
-                    if (line.dist < 10*NODE_DIAMETER) continue // Prevents clustering (mostly)
+                    if (line.dist < 2*NODE_DIAMETER) continue // Prevents clustering (mostly)
                     let f = (G * point.mass * otherPoint.mass) / (line.dist**2)
 
                     let ux = (otherPoint.pos.x - point.pos.x) / line.dist
@@ -106,8 +108,10 @@ function updatePoints(points, lines, dimensions) {
             }
 
             
-            var new_x = point.pos.x + vel_x;
-            var new_y = point.pos.y + vel_y;
+            let now = new Date()
+            let dt =  (now - lastUpdated) / 1000
+            var new_x = point.pos.x + vel_x * dt;
+            var new_y = point.pos.y + vel_y * dt;
 
             // Boundary checking
             var min_x = NODE_DIAMETER + EDGE_PADDING;
@@ -142,6 +146,7 @@ function euclideanDist(x1, y1, x2, y2) {
     return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
+let lastUpdated = new Date();
 export default function Background() {
     const [mounted, setMounted] = useState(false)
     const [dimensions, setDimensions] = useState({
@@ -214,8 +219,9 @@ export default function Background() {
 
         const interval = setInterval(() => {
             setLines(connectPoints(points))
-
             setPoints(updatePoints(points, lines, dimensions))
+
+            lastUpdated = new Date()
         }, 1000 / FRAMES_PER_SECOND);
 
         return () => clearInterval(interval);
