@@ -40,7 +40,7 @@ export default function Home() {
       
       <Background settings={settings} className="absolute inset-0" />
       
-      <div class="fixed top-4 right-4 flex space-x-3 z-50">
+      <div className="fixed top-4 right-4 flex space-x-3 z-50">
         <button className="z-50" onClick={()=>{
           setVisibility(!visible)
         }}>
@@ -49,7 +49,7 @@ export default function Home() {
         <button className="z-50" onClick={()=>{
           setSettingsOpen(!settingsOpen)
         }}>
-          { visible ? <Settings2 color={settingsOpen ? "yellow" : "white"} size={32}/> : <Settings2 size={32}/>}
+          { settingsOpen ? <Settings2 color={settingsOpen ? "yellow" : "white"} size={32}/> : <Settings2 size={32}/>}
         </button>
       </div>
       
@@ -57,45 +57,45 @@ export default function Home() {
       <div className="absolute right-5 top-20 p-2 w-50 z-100 bg-blue-950 rounded border border-gray-300 transition-all duration-200 delay-100" style={{ opacity: settingsOpen ? 1 : 0 }}>
         <p className="text-xl text-center">Settings</p>
         <hr className="pb-2"/>
-        <label htmlFor="numNodes" class="mb-2 text-md text-justify font-medium text-gray-00">Number of Nodes: {settings.numNodes}</label>
-        <input type="range" id="numNodes" min="0" max="80" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" value={settings.numNodes} onChange={(e) => {
+        <label htmlFor="numNodes" className="mb-2 text-md text-justify font-medium text-gray-00">Number of Nodes: {settings.numNodes}</label>
+        <input type="range" id="numNodes" min="0" max="60" className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" value={settings.numNodes} onChange={(e) => {
           setSettings({
             ...settings,
             numNodes: e.target.value
           })
         }}/>
-        <label htmlFor="lineDist" class="mb-2 text-md text-justify font-medium text-gray-00">Line Distance: {settings.lineMaxDistance} px</label>
-        <input type="range" id="lineDist" min="0" max="800" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" value={settings.lineMaxDistance} onChange={(e) => {
+        <label htmlFor="lineDist" className="mb-2 text-md text-justify font-medium text-gray-00">Line Distance: {settings.lineMaxDistance} px</label>
+        <input type="range" id="lineDist" min="0" max="500" className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" value={settings.lineMaxDistance} onChange={(e) => {
           setSettings({
             ...settings,
             lineMaxDistance: e.target.value
           })
         }}/>
-        <label htmlFor="drag" class="mb-2 text-md text-justify font-medium text-gray-00">Drag Factor: {settings.drag}</label>
-        <input type="range" id="drag" min="0" max="1" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" value={settings.drag} onChange={(e) => {
+        <label htmlFor="drag" className="mb-2 text-md text-justify font-medium text-gray-00">Drag Factor: {settings.drag}</label>
+        <input type="range" id="drag" min="0" max="5" step="0.5" className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" value={settings.drag} onChange={(e) => {
           setSettings({
             ...settings,
             drag: e.target.value
           })
         }}/>
         <div className="flex items-center justify-between gap-x-20 w-full">
-          <label htmlFor="drag" class="mb-2 text-md text-justify font-medium text-gray-00">Gravity:</label>
-          <input type="checkbox" id="drag" min="0" max="1" step="0.01" class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" checked={settings.gravityEnabled} onChange={(e) => {
+          <label htmlFor="drag" className="mb-2 text-md text-justify font-medium text-gray-00">Gravity:</label>
+          <input type="checkbox" id="drag" min="0" max="1" step="0.01" className="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" checked={settings.gravityEnabled} onChange={(e) => {
             setSettings({
               ...settings,
               gravityEnabled: e.target.checked
             })
           }}/>
         </div>
-        <label htmlFor="mousePushPower" class="mb-2 text-md text-justify font-medium text-gray-00">Mouse Push Power: {settings.mousePushPower}</label>
-        <input type="range" id="mousePushPower" min="0" max="200" value={settings.mousePushPower} class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" onChange={(e) => {
+        <label htmlFor="mousePushPower" className="mb-2 text-md text-justify font-medium text-gray-00">Mouse Push Power: {settings.mousePushPower}</label>
+        <input type="range" id="mousePushPower" min="0" max="200" value={settings.mousePushPower} className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" onChange={(e) => {
           setSettings({
             ...settings,
             mousePushPower: e.target.value
           })
         }}/>
-        <label htmlFor="fps" class="mb-2 text-md text-justify font-medium text-gray-00">Frames Per Second: {settings.framesPerSecond}</label>
-        <input type="range" id="fps" min="0" max="90" value={settings.framesPerSecond} class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" onChange={(e) => {
+        <label htmlFor="fps" className="mb-2 text-md text-justify font-medium text-gray-00">Frames Per Second: {settings.framesPerSecond}</label>
+        <input type="range" id="fps" min="0" max="90" value={settings.framesPerSecond} className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500" onChange={(e) => {
           setSettings({
             ...settings,
             framesPerSecond: e.target.value
@@ -176,6 +176,11 @@ export default function Home() {
               )
             })
           }
+
+          <hr className="mt-8 mb-2"/>
+          <p className="text-lg font-normal text-center text-gray-700 dark:text-white">Questions or feedback? I’d love to hear from you through one of the ways to connect listed at the top!</p>
+          <p className="text-sm font-normal text-center text-gray-700 dark:text-white">(Close out any open section to view ways to connect again)</p>
+
         </div>
       </div>
     </div>

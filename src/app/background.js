@@ -6,34 +6,21 @@ import { useState, useEffect } from 'react';
 const LINE_COLOR = "#3498db"
 const NODE_COLOR = "#bbbbbb"
 
-// Initialization
-const NUM_NODES_MIN = 25
-const NUM_NODES_MAX = 40
-const NUM_NODES = Math.floor(Math.random() * (NUM_NODES_MAX - NUM_NODES_MIN) + NUM_NODES_MIN);
-
 const NODE_DIAMETER = 10;
-const NODE_MAX_DIST = 200;
 
 // Updating 
 const EDGE_PADDING = 5;
 const MAX_VELOCITY = 80;
-const DRAG = 0.00;
 
 // Gravity (decided higher constant of G for easier computation)
-const GRAVITY_ON = false
 const G = 6.67e-2// -11 irl
-const MIN_MASS = 50
-const MAX_MASS = 50
+const MIN_MASS = 5000
+const MAX_MASS = 10000
 
-// Interaction
-const MOUSE_PUSH_POWER = 150;
 
-// Utility
-const FRAMES_PER_SECOND = 60;
-
-function generatePoints(width, height) {
+function generatePoints(width, height, numNodes) {
     var points = [];
-    for (var i = 0; i < NUM_NODES; i++) {
+    for (var i = 0; i < numNodes; i++) {
         var x_pos = Math.floor(Math.random() * (width + 1));
         var x_vel = Math.random() * MAX_VELOCITY * 2 - MAX_VELOCITY;
 
@@ -72,7 +59,7 @@ function connectPoints(points) {
     }
 
     // Remove where dist too far
-    pairs = pairs.filter((p) => p.dist < NODE_MAX_DIST)
+    pairs = pairs.filter((p) => p.dist < settings.lineMaxDistance)
     // Sort by distance
     pairs.sort((a, b) => { return a.dist < b.dist})
 
@@ -85,7 +72,7 @@ function updatePoints(points, lines, dimensions) {
             var vel_y = point.vel.y;
 
             // NOTE: gravity will only have an effect within NODE_MAX_DISTANCE
-            if (GRAVITY_ON) {
+            if (settings.gravityEnabled) {
                 for (let line of lines) {
                     let otherPoint = undefined
 
@@ -133,8 +120,8 @@ function updatePoints(points, lines, dimensions) {
 
 
             // Drag
-            vel_x = Math.abs(vel_x) > DRAG ? vel_x - Math.sign(vel_x) * DRAG : 0;
-            vel_y = Math.abs(vel_y) > DRAG ? vel_y - Math.sign(vel_y) * DRAG : 0;
+            vel_x = Math.abs(vel_x) > settings.drag ? vel_x - Math.sign(vel_x) * settings.drag : 0;
+            vel_y = Math.abs(vel_y) > settings.drag ? vel_y - Math.sign(vel_y) * settings.drag : 0;
 
             point.pos = {"x": new_x, "y": new_y}
             point.vel = {"x": Math.min(vel_x, MAX_VELOCITY), "y": Math.min(vel_y, MAX_VELOCITY)}
@@ -146,8 +133,12 @@ function euclideanDist(x1, y1, x2, y2) {
     return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
-let lastUpdated = new Date();
-export default function Background() {
+let lastUpdated = new Date()
+let settings = null
+
+export default function Background(props) {
+    settings  = props.settings
+
     const [mounted, setMounted] = useState(false)
     const [dimensions, setDimensions] = useState({
         width: 0,
@@ -164,7 +155,7 @@ export default function Background() {
             width: window.innerWidth,
             height: window.innerHeight
         })
-        setPoints(generatePoints(window.innerWidth, window.innerHeight))
+        setPoints(generatePoints(window.innerWidth, window.innerHeight, settings.numNodes))
         setLines(connectPoints(points))
         
     }, [])
@@ -203,8 +194,8 @@ export default function Background() {
                     let dy = point_y - mouse_y
 
                     let vector = { x: dx / dist, y: dy / dist }
-                    point.vel.x = vector.x * MOUSE_PUSH_POWER
-                    point.vel.y = vector.y * MOUSE_PUSH_POWER
+                    point.vel.x = vector.x * settings.mousePushPower
+                    point.vel.y = vector.y * settings.mousePushPower
                 }
             }
         }
@@ -218,11 +209,20 @@ export default function Background() {
         if (!mounted) return
 
         const interval = setInterval(() => {
+            if (settings.framesPerSecond == 0) return
+            
             setLines(connectPoints(points))
             setPoints(updatePoints(points, lines, dimensions))
 
+            // Any change in NUM_NODES will be updated here
+            if (settings.numNodes < points.length) {
+                setPoints(points.slice(0, settings.numNodes))
+            } else if (settings.numNodes > points.length) {
+                setPoints(points.concat(generatePoints(dimensions.width, dimensions.height, settings.numNodes - points.length)))
+            }
+
             lastUpdated = new Date()
-        }, 1000 / FRAMES_PER_SECOND);
+        }, 1000 / settings.framesPerSecond);
 
         return () => clearInterval(interval);
     }, [points, lines, dimensions]);

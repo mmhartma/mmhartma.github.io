@@ -139,6 +139,23 @@ export function UB_Description() {
 export function Future_Description() {
     return (<>
         <hr className="my-2"/>
+        <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
+            <p className="pt-2 text-lg">Career Ambitions</p>
+            <hr className="my-1"/>
+            <p className="p-1 pt-2"><span className="font-bold">Actively pursuing</span> a tech role at a company that makes a difference</p>
+            <p className="p-1"><span className="font-bold">Seeking mentorship</span> to gain guidance and accelerate growth</p>
+            <p className="p-1"><span className="font-bold">Motivated by growth and recognition</span>— thoroughly driven by results, eager to maximize opportunities given</p>
+            <p className="p-1"><span className="font-bold">Aiming to leverage leadership skills</span> to drive innovation and create impactful technological solutions</p> 
+        </div>
+
+        <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
+            <p className="pt-2 text-lg">Interests (Goals)</p>
+            <hr className="my-1"/>
+            <p className="p-1 pt-2"><span className="font-bold">Exploring systems</span>—focusing on intractability, scalability, and security</p>
+            <p className="p-1 pt-2"><span className="font-bold">Optimizing existing systems</span> to enhance efficiency and performance</p>
+            <p className="p-1"><span className="font-bold">Building market-driven</span> solutions with real-world impact</p>
+
+        </div>
     </>
     )
 }
@@ -146,15 +163,32 @@ export function Future_Description() {
 
 
 //EXPERIENCES
-export function UBResearch_Description() {
-    return (
-        <Header place="Buffalo, New York" dateFrom="May 2024" dateTo="Aug. 2024"/>
-
-    )
-}
 export function LaBella_Description() {
-    return (
-        <Header place="Buffalo, New York" dateFrom="June 2021" dateTo="Current"/>
+    return (<>
+        <div className="flex justify-between">
+            <span className="h3 italic">Buffalo, New York (June 2021 - Current)</span>
+            <span className="italic">Note this is my family's business</span>
+        </div>
+        <hr className="my-2"/>
+        <p>There's no one term to cover what I do here- a little bit of everything?</p>
+        <p>I've gained many transferrable skills here, I plan to take these everywhere I go</p>
+        <p className="mt-4">For my computer-related responsibilities, I maintain:</p>
+        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href="https://labellasicilia.com/">company website</a></p>
+        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href="https://drive.google.com/file/d/1sfpuQVdSyYilFVubo-JoEu0-mRpt0pAt/view?usp=sharing">dining room menu</a></p>
+        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href="https://drive.google.com/file/d/1oad1ANePLbPLuwtVyi-IR5Zq1jLnKLnT/view?usp=sharing">takeout menu</a></p>
+        <p className="indent-2">Along with the point-of-sale computers (self-taught)</p>
 
-    )
+        <p className="pt-4">There are many responsibilities I hold here, and have been tied into everything. From maintenance to accounting, I've at least been a part of it</p>
+    </>)
+}
+export function UBResearch_Description() {
+    return (<>
+        <Header place="Buffalo, New York" dateFrom="May 2024" dateTo="Aug. 2024"/>
+        <p>Research position over Summer 2024, tasked with improving the networking functionality</p>
+        <p>Learned a considerable amount of C and cryptography</p>
+        <p>Switched from blocking to non-blocking send and receive functions, saw increase of response time of 30%</p>
+        <p>Main downfall was congestion with high number of packets-- more necessary work to be done to avoid this</p>
+        <p>Wrote a document containing all the necessary formal details, which can be found <a target="_blank" href="https://drive.google.com/file/d/1Kf0UykyZqgK0aaZ0LjpnmBTcz04H0Ir-/view?usp=sharing"  className="text-blue-400 hover:underline">here</a>.</p>
+
+    </>)
 }
