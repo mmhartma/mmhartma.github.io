@@ -21,7 +21,7 @@ const EXPERIENCES = {
 
 export default function Home() {
   let [visible, setVisibility] = useState(true)
-  let [settingsOpen, setSettingsOpen] = useState(true)
+  let [settingsOpen, setSettingsOpen] = useState(false)
   let [settings, setSettings] = useState({
     numNodes: 30,
     lineMaxDistance: 200,
