@@ -108,17 +108,17 @@ export default function Home() {
 
 
       <div className="flex py-12 max-h-90 overflow-auto justify-center min-h-screen relative transition-all duration-200 delay-100" style={{ opacity: visible ? 1 : 0 }}>
-        <div className="w-3/4 p-12 border border-gray-200 rounded-lg shadow-sm dark:bg-blue-900/80 dark:border-white-700 overflow-auto">
-          <h1 className="mb-2 text-5xl text-center font-bold tracking-tight text-gray-900 dark:text-white">Marcus Hartman</h1>
+        <div className="w-3/4 p-12 border border-gray-200 rounded-lg shadow-sm bg-blue-900/80 border-white-700 overflow-auto">
+          <h1 className="mb-2 text-5xl text-center font-bold tracking-tight text-gray-900 text-white">Marcus Hartman</h1>
 
           <div className="transition-all ease-in duration-800" 
           style={{ 
             opacity: (chapter == null && experience == null) ? 1 : 0, 
             maxHeight: (chapter == null && experience == null) ? "100%" : "0%"}}
           >
-            <p className="text-xl font-normal text-center text-gray-700 dark:text-gray-100">A motivated developer focused on creating impactful solutions</p>
+            <p className="text-xl font-normal text-center text-gray-100 text-gray-100">A motivated developer focused on creating impactful solutions</p>
             <div className="flex justify-center space-x-6 mt-6">
-              <a href="mailto:marcushartman795@gmail.com" className="border-white border-4 rounded p-1 hover:bg-white">
+              <a href="mailto:mmhartma@buffalo.edu" className="border-white border-4 rounded p-1 hover:bg-white">
                 <Mail/>
               </a>
               <a href="tel:+17169970154" className="border-white border-4 rounded p-1 hover:bg-white">
@@ -134,7 +134,7 @@ export default function Home() {
           </div>
 
           <hr className="my-8"/>
-          <p className="text-4xl font-normal text-center text-gray-700 pb-8 dark:text-white">My Journey (So Far)</p>
+          <p className="text-4xl font-normal text-center text-gray-700 pb-8 text-white">My Journey (So Far)</p>
 
 
           {
@@ -156,7 +156,7 @@ export default function Home() {
             })
           }
           <hr className="my-8"/>
-          <p className="text-4xl font-normal text-center text-gray-700 pb-8 dark:text-white">Experience</p>
+          <p className="text-4xl font-normal text-center text-gray-700 pb-8 text-white">Experience</p>
           
           {
             Object.keys(EXPERIENCES).map((e) => {
@@ -178,8 +178,8 @@ export default function Home() {
           }
 
           <hr className="mt-8 mb-2"/>
-          <p className="text-lg font-normal text-center text-gray-700 dark:text-white">Questions or feedback? I’d love to hear from you through one of the ways to connect listed at the top!</p>
-          <p className="text-sm font-normal text-center text-gray-700 dark:text-white">(Close out any open section to view ways to connect again)</p>
+          <p className="text-lg font-normal text-center text-gray-700 text-white">Questions or feedback? I’d love to hear from you through one of the ways to connect listed at the top!</p>
+          <p className="text-sm font-normal text-center text-gray-700 text-white">(Close out any open section to view ways to connect again)</p>
 
         </div>
       </div>
