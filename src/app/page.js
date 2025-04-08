@@ -117,6 +117,10 @@ export default function Home() {
             maxHeight: (chapter == null && experience == null) ? "100%" : "0%"}}
           >
             <p className="text-xl font-normal text-center text-gray-100 text-gray-100">A motivated developer focused on creating impactful solutions</p>
+            <a href="https://drive.google.com/file/d/13_PURTgUV24YK54weI6XGZwAlw3_bsQR/view?usp=sharing" target="_blank" class="block w-fit mx-auto text-center bg-blue-600 text-white text-lg font-semibold px-12 py-2 my-2 rounded-xl shadow-lg hover:bg-blue-300 transition">
+              Resume
+            </a>
+
             <div className="flex justify-center space-x-6 mt-6">
               <a href="mailto:mmhartma@buffalo.edu" className="border-white border-4 rounded p-1 hover:bg-white">
                 <Mail/>
