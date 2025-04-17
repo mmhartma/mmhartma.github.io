@@ -61,6 +61,15 @@ export function UB_Description() {
         <p className="text-xl pt-2">Projects <span className="text-sm">(the ones I'm proud of)</span></p>
         
         <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
+            <p className="pt-2 text-lg">CSE 426: Blockchain Application Development (Solidity)</p>
+            <p className="text-md italic"><a target="_blank" href="https://github.com/mmhartma/426-Project" className="text-blue-400 hover:underline">PwMD: Password Manager, Distributed</a></p>
+            <hr className="my-1"/>
+            <p>Created a blockchain-based solution for storing and retrieving encrypted passwords tied to a Non-Fungible Token (NFT)</p>
+            <p>Associated the smart contract with both a Decentralized Application (dApp) and as a chrome extension for ease of use</p>
+            <p>User has the ability to create, read, update, and delete any password stored, only available for the owner to manage</p>
+        </div>
+
+        <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
             <p className="pt-2 text-lg">CSE 521: Operating Systems (C)</p>
             <p className="text-md italic"><a target="_blank" href="https://web.stanford.edu/class/cs140/projects/pintos/pintos.pdf" className="text-blue-400 hover:underline">Pintos Operating System</a></p>
             <hr className="my-1"/>
