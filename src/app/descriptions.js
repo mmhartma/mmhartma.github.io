@@ -1,3 +1,5 @@
+import links from "./links"
+
 // UTIL
 function Header(props) {
     return (<>
@@ -62,7 +64,7 @@ export function UB_Description() {
         
         <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
             <p className="pt-2 text-lg">CSE 426: Blockchain Application Development (Solidity)</p>
-            <p className="text-md italic"><a target="_blank" href="https://github.com/mmhartma/426-Project" className="text-blue-400 hover:underline">PwMD: Password Manager, Distributed</a></p>
+            <p className="text-md italic"><a target="_blank" href={links.BLOCKCHAIN} className="text-blue-400 hover:underline">PwMD: Password Manager, Distributed</a></p>
             <hr className="my-1"/>
             <p>Created a blockchain-based solution for storing and retrieving encrypted passwords tied to a Non-Fungible Token (NFT)</p>
             <p>Associated the smart contract with both a Decentralized Application (dApp) and as a chrome extension for ease of use</p>
@@ -71,7 +73,7 @@ export function UB_Description() {
 
         <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
             <p className="pt-2 text-lg">CSE 521: Operating Systems (C)</p>
-            <p className="text-md italic"><a target="_blank" href="https://web.stanford.edu/class/cs140/projects/pintos/pintos.pdf" className="text-blue-400 hover:underline">Pintos Operating System</a></p>
+            <p className="text-md italic"><a target="_blank" href={links.PINTOS} className="text-blue-400 hover:underline">Pintos Operating System</a></p>
             <hr className="my-1"/>
             <p>A project about implementing underlying processes within an Operating System in phases</p>
             <p>Thread scheduling and execution investigated, along with execution of user programs</p>
@@ -90,7 +92,7 @@ export function UB_Description() {
 
         <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
             <p className="pt-2 text-lg"> CSE 587: Data Intensive Computing</p>
-            <p className="text-md italic"><a target="_blank" href="https://github.com/mmhartma/CSE587-Fall24-Project" className="text-blue-400 hover:underline">Rent Analyzer and Predictor</a> (Python)</p>
+            <p className="text-md italic"><a target="_blank" href={links.DATA_PROJECT} className="text-blue-400 hover:underline">Rent Analyzer and Predictor</a> (Python)</p>
             <hr className="my-1"/>
             <p>A semester-long project with two other group members aimed at understanding the cycle of using data to create an AI/ML product</p>
             <p>Data Processing Cycle emphasized here: Collection, Processing, and Analysis</p>
@@ -99,7 +101,7 @@ export function UB_Description() {
 
         <div className="px-8 m-2 py-2 bg-gray-700 rounded-lg">
             <p className="pt-2 text-lg">CSE 486: Distributed Systems</p>
-            <p className="text-md italic"><a target="_blank" href="https://raft.github.io/" className="text-blue-400 hover:underline">Raft</a>: Consensus Algorithm (Go)</p>
+            <p className="text-md italic"><a target="_blank" href={links.RAFT} className="text-blue-400 hover:underline">Raft</a>: Consensus Algorithm (Go)</p>
             <hr className="my-1"/>
             <p>A project aimed at tackling the idea of consensus between multiple servers, handling failure</p>
             <p>Translated a research paper into code: the ideas were laid out, little test cases given (majority of tests made by the student)</p>
@@ -110,7 +112,7 @@ export function UB_Description() {
             <p className="pt-2 text-lg">CSE 486: Distributed Systems</p>
             <p className="text-md italic">k-DHT: k-Distributed Hash Table (Go)</p>
             <hr className="my-1"/>
-            <p>Based off the research paper <a target="_blank" href="https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf" className="text-blue-400 hover:underline">Kademlia</a>, where information is attempted to be available without knowing each participating node</p>
+            <p>Based off the research paper <a target="_blank" href={links.KADEMLIA} className="text-blue-400 hover:underline">Kademlia</a>, where information is attempted to be available without knowing each participating node</p>
             <p>Similar in difficulty to the Raft project above, where the student was tasked with translating the paper into code, with little test cases given</p>
             <p>Planning and debugging were the emphasis in this project; not planning according to the specific design requirements led to many unnecessary headaches</p>
         </div>
@@ -182,9 +184,9 @@ export function LaBella_Description() {
         <p>There's no one term to cover what I do here- a little bit of everything?</p>
         <p>I've gained many transferrable skills here, I plan to take these everywhere I go</p>
         <p className="mt-4">For my computer-related responsibilities, I maintain:</p>
-        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href="https://labellasicilia.com/">company website</a></p>
-        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href="https://drive.google.com/file/d/1sfpuQVdSyYilFVubo-JoEu0-mRpt0pAt/view?usp=sharing">dining room menu</a></p>
-        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href="https://drive.google.com/file/d/1oad1ANePLbPLuwtVyi-IR5Zq1jLnKLnT/view?usp=sharing">takeout menu</a></p>
+        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href={links.RESTAURANT}>company website</a></p>
+        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href={links.DINING}>dining room menu</a></p>
+        <p className="indent-2">The <a target="_blank" className="text-blue-400 hover:underline" href={links.TAKEOUT}>takeout menu</a></p>
         <p className="indent-2">Along with the point-of-sale computers (self-taught)</p>
 
         <p className="pt-4">There are many responsibilities I hold here, and have been tied into everything. From maintenance to accounting, I've at least been a part of it</p>
@@ -197,7 +199,7 @@ export function UBResearch_Description() {
         <p>Learned a considerable amount of C and cryptography</p>
         <p>Switched from blocking to non-blocking send and receive functions, saw increase of response time of 30%</p>
         <p>Main downfall was congestion with high number of packets-- more necessary work to be done to avoid this</p>
-        <p>Wrote a document containing all the necessary formal details, which can be found <a target="_blank" href="https://drive.google.com/file/d/1Kf0UykyZqgK0aaZ0LjpnmBTcz04H0Ir-/view?usp=sharing"  className="text-blue-400 hover:underline">here</a>.</p>
+        <p>Wrote a document containing all the necessary formal details, which can be found <a target="_blank" href={links.RESEARCH}  className="text-blue-400 hover:underline">here</a>.</p>
 
     </>)
 }
