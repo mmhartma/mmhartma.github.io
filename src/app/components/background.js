@@ -1,6 +1,6 @@
 "use client";
 
-import { GraduationCap, CodeXml, FolderCode, Microscope, BriefcaseBusiness } from 'lucide-react';
+import { GraduationCap, CodeXml, FolderCode, Microscope, BriefcaseBusiness, User } from 'lucide-react';
 import { useState, useEffect, cloneElement } from 'react';
 
 // Design
@@ -20,8 +20,10 @@ function generatePoints(dimensions, numNodes) {
 
     // Randomly generate points
     for (var i = 0; i < numNodes; i++) {
-        var x_pos = Math.floor(Math.random() * (width - NODE_MAX_RADIUS * 2)) + NODE_MAX_RADIUS;
-        var y_pos = Math.floor(Math.random() * (height - NODE_MAX_RADIUS * 2)) + NODE_MAX_RADIUS;
+        var spreadX = (Math.random() - 0.5) * width * 0.8;
+        var spreadY = (Math.random() - 0.5) * height * 1.1;
+        var x_pos = Math.floor(width / 2 + spreadX);
+        var y_pos = Math.floor(height / 2 + spreadY);
         
         var radius = Math.random() * (NODE_MAX_RADIUS - NODE_MIN_RADIUS) + NODE_MIN_RADIUS;
 
@@ -57,6 +59,14 @@ function generatePoints(dimensions, numNodes) {
             icon: icons[i]
         })
     }
+
+    // Add central point (About Me)
+    points.push({
+        pos: {x: width / 2, y: height / 2},
+        radius: NODE_MAX_RADIUS * 10,
+        label: "About Me",
+        icon: <User size={24} color={iconStyle.color} strokeWidth={iconStyle.strokeWidth} />
+    })
 
     return points
 }
@@ -122,7 +132,7 @@ export default function Background() {
         handleDimensions();
 
         // Generate points and lines
-        setPoints(generatePoints({width: window.innerWidth + POINT_OVERFLOW, height: window.innerHeight + POINT_OVERFLOW}, 70))
+        setPoints(generatePoints({width: window.innerWidth + POINT_OVERFLOW, height: window.innerHeight + POINT_OVERFLOW}, 50))
     }, [])
 
     useEffect(() => {
@@ -190,7 +200,7 @@ export default function Background() {
 
                 return (
                     <g key={i}>
-                        <g transform={`translate(${centerX - iconSize / 2}, ${centerY - iconSize / 2 - 6})`}>
+                        <g transform={`translate(${centerX - iconSize / 2}, ${centerY - iconSize / 2 - 8})`}>
                             {iconElement}
                         </g>
                         <text
