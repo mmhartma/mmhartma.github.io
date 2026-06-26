@@ -1,38 +1,47 @@
 import links from "../links";
 
-import { Mail, Phone, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin, Github } from 'lucide-react';
 
 export default function Intro() {
   return (
-    <div className="flex py-12 max-h-90 overflow-auto justify-center min-h-screen relative transition-all duration-200 delay-100">
-        <div className="w-3/4 p-12 border border-gray-200 rounded-lg shadow-sm bg-blue-900/80 border-white-700 overflow-auto">
+    <div className="flex justify-start px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+      <div className="w-full max-w-2xl rounded-3xl border border-white/20 bg-slate-900/70 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
+        <div className="text-left">
+          <h1 className="mb-1 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            Marcus Hartman
+          </h1>
 
-          <h1 className="mb-2 text-5xl text-center font-bold tracking-tight text-gray-900 text-white">Marcus Hartman</h1>
+          <p className="mb-4 text-lg font-medium text-sky-500 sm:text-xl">
+            Software Engineer
+          </p>
 
-          <div className="transition-all ease-in duration-800">
-            <p className="text-xl font-normal text-center text-gray-100 text-gray-100">catchline</p>
+          <p className="max-w-xl text-lg text-slate-200 sm:text-xl">
+            Catchline
+          </p>
 
-            {/* Links */}
-            <div className="flex justify-center space-x-6 mt-6">
-              <a href={links.RESUME} target="_blank" className="block w-fit mx-auto text-center bg-blue-600 text-white text-lg font-semibold px-12 py-2 my-2 rounded-xl shadow-lg hover:bg-blue-300 transition">
-                Resume
-              </a>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <a
+              href={links.RESUME}
+              target="_blank"
+              className="rounded-full bg-sky-600 px-6 py-2.5 text-base font-semibold text-white shadow-lg shadow-sky-600/20 transition duration-200 hover:bg-sky-500"
+            >
+              Resume
+            </a>
 
-              <a href="mailto:mmhartma@buffalo.edu" className="border-white border-4 rounded p-1 hover:bg-white">
-                <Mail/>
+            <div className="flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-3 py-2">
+              <a href="mailto:mmhartma@buffalo.edu" className="rounded-full p-2 text-white transition duration-200 hover:bg-white/20">
+                <Mail size={18} />
               </a>
-              <a href="tel:+17169970154" className="border-white border-4 rounded p-1 hover:bg-white">
-                <Phone/>
+              <a href={links.GITHUB} target="_blank" className="rounded-full p-2 text-white transition duration-200 hover:bg-white/20">
+                <Github size={18} />
               </a>
-              <a href={links.GITHUB} target="_blank" className="ml-8 border-white border-4 rounded p-1 hover:bg-white">
-                <Github/>
+              <a href={links.LINKEDIN} target="_blank" className="rounded-full p-2 text-white transition duration-200 hover:bg-white/20">
+                <Linkedin size={18} />
               </a>
-              <a href={links.LINKEDIN} target="_blank" className="border-white border-4 rounded p-1 hover:bg-white">
-                <Linkedin/>
-              </a> 
             </div>
           </div>
         </div>
       </div>
-  )
+    </div>
+  );
 }

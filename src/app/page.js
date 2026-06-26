@@ -7,9 +7,9 @@ import Intro from "./components/intro";
 export default function Home() {
 
   return (
-    <div className="relative max-h-screen overflow-auto">
+    <div className="min-h-full">
       
-      <Background className="absolute inset-0" />
+      <Background className="absolute inset-0 "/>
 
       {/* Main box */}
       <div className="flex">
