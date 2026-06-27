@@ -5,7 +5,7 @@ import { Mail, Linkedin, Github } from 'lucide-react';
 export default function Intro() {
   return (
     <div className="flex justify-start px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-      <div className="w-full max-w-2xl rounded-3xl border border-white/20 bg-slate-900/70 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
+      <div className="w-full max-w-2xl rounded-2xl border border-white/20 bg-slate-900/70 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
         <div className="text-left">
           <h1 className="mb-1 text-4xl font-bold tracking-tight text-white sm:text-5xl">
             Marcus Hartman
