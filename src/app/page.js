@@ -3,18 +3,20 @@
 import Background from "./components/background";
 import Intro from "./components/intro";
 
+import { useState } from "react";
 
 export default function Home() {
 
+  let [zoomedIn, setZoomedIn] = useState(false);
   return (
-    <div className="min-h-full">
+    <div className="relative min-h-screen overflow-hidden">
       
-      <Background className="absolute inset-0 "/>
+        <Background setZoomedIn={setZoomedIn} className="absolute inset-0 "/>
 
-      {/* Main box */}
-      <div className="flex">
-        { Intro() }
-      </div>
+        {/* Main box */}
+        <div className="flex">
+          { Intro(zoomedIn) }
+        </div>
 
 
 
