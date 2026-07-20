@@ -22,6 +22,7 @@ export default function Background(props) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [points, setPoints] = useState([]);
     const [lines, setLines] = useState([]);
+    const [showLabel, setShowLabel] = useState(false);
 
     // Use custom hooks
     const { hoveredIndex, displayText, animatedNodesRef, startTypewriter, clearTypewriter } = useTypewriter();
@@ -52,6 +53,7 @@ export default function Background(props) {
         setPoints(generatePoints(newDimensions, 50, fixedPoints));
     }, []);
 
+    // Update lines whenever points change
     useEffect(() => {
         setLines(connectPoints(points));
     }, [points]);
@@ -59,6 +61,16 @@ export default function Background(props) {
     useEffect(() => {
         setZoomedIn(zoomedIndex !== null);
     }, [zoomedIndex, setZoomedIn]);
+
+    // Show label above node (on focus)
+    useEffect(() => {
+        if (zoomedIndex !== null) {
+            let timer = window.setTimeout(() => setShowLabel(true), 300);
+            return () => window.clearTimeout(timer);
+        }
+
+        setShowLabel(false);
+    }, [zoomedIndex]);
 
     if (!mounted) return <></>;
 
@@ -122,12 +134,12 @@ export default function Background(props) {
 
                 {/* Points */}
                 {points.map(function(point, i) {
-                    const isFixed = point.description || point.label === "About Me";
-                    const isAboutMe = point.label === "About Me";
-                    const fill = isFixed ? 'rgba(71, 85, 105, 0.95)' : NODE_COLOR;
-                    const stroke = isFixed ? 'rgba(148, 163, 184, 0.4)' : 'none';
-                    const strokeWidth = isFixed ? 1.25 : 0;
-                    const filter = isAboutMe
+                    let isFixed = point.description || point.label === "About Me";
+                    let isAboutMe = point.label === "About Me";
+                    let fill = isFixed ? 'rgba(71, 85, 105, 0.95)' : NODE_COLOR;
+                    let stroke = isFixed ? 'rgba(148, 163, 184, 0.4)' : 'none';
+                    let strokeWidth = isFixed ? 1.25 : 0;
+                    let filter = isAboutMe
                         ? 'drop-shadow(0 0 12px rgba(148, 163, 184, 0.35))'
                         : isFixed ? 'drop-shadow(0 0 8px rgba(148, 163, 184, 0.18))'
                             : undefined;
@@ -163,9 +175,9 @@ export default function Background(props) {
                     if (!point.icon && point.label !== "About Me") return null;
                     if (zoomedIndex !== null && zoomedIndex !== i) return null;
 
-                    const centerX = point.pos.x;
-                    const centerY = point.pos.y;
-                    const iconSize = Math.min(48, Math.max(24, point.radius * 0.8));
+                    let centerX = point.pos.x;
+                    let centerY = point.pos.y;
+                    let iconSize = Math.min(48, Math.max(24, point.radius * 0.8));
 
                     let iconElement = null;
                     if (point.icon) {
@@ -194,20 +206,44 @@ export default function Background(props) {
                 })}
             </svg>
 
+            {/* Render label on the focused node*/}
+            {points.map(function(point, i) {
+                if (zoomedIndex !== i) return null;
+
+                return (
+                    <div
+                        key={`label-${i}`}
+                        className="pointer-events-none absolute transition-opacity duration-500 ease-out"
+                        style={{
+                            left: point.pos.x,
+                            top: point.pos.y - point.radius - 20,
+                            transform: 'translate(-50%, -100%)',
+                            zIndex: 10,
+                            opacity: showLabel ? 1 : 0
+                        }}
+                    >
+                        <div className="rounded-full border border-white/20 bg-slate-900/70 px-3 py-1 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_30px_rgba(0,0,0,0.28)] backdrop-blur-xl whitespace-nowrap">
+                            {point.label}
+                        </div>
+                    </div>
+                );
+            })}
+
             {/* Render description */}
             {points.map(function(point, i) {
                 if (!point.description) return null;
                 if (zoomedIndex !== null) return null;
 
-                const isAnimatingOut = animatingOutLabels.has(i);
-                const angle = Math.atan2(point.pos.y - dimensions.height / 2, point.pos.x - dimensions.width / 2);
-                const degrees = (angle * 180) / Math.PI;
-                const boxWidth = 200;
-                const boxHeight = hoveredIndex === i ? 72 : 48;
-                const spacing = 14;
+                let isAnimatingOut = animatingOutLabels.has(i);
+                let angle = Math.atan2(point.pos.y - dimensions.height / 2, point.pos.x - dimensions.width / 2);
+                let degrees = (angle * 180) / Math.PI;
+                let boxWidth = 200;
+                let boxHeight = hoveredIndex === i ? 72 : 48;
+                let spacing = 14;
                 let top = point.pos.y - boxHeight / 2;
                 let left = point.pos.x - boxWidth / 2;
 
+                // No, there's not a better way..
                 if (degrees >= -45 && degrees < 45) {
                     // right side
                     left = point.pos.x + point.radius + spacing;
@@ -258,6 +294,7 @@ export default function Background(props) {
             })}
         </div>
 
+        {/* Zoomed content cards */}
         <ZoomedContent label={label} />
     </>
 );
