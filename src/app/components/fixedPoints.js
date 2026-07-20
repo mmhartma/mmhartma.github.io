@@ -21,11 +21,6 @@ export const fixedPoints = [
         label: "Education",
         icon: <GraduationCap size={24} color={ICON_STYLE.color} strokeWidth={ICON_STYLE.strokeWidth} />,
         description: "Academic background and coursework."
-    },
-    {
-        label: "Research",
-        icon: <Microscope size={24} color={ICON_STYLE.color} strokeWidth={ICON_STYLE.strokeWidth} />,
-        description: "Exploratory work and personal drives in the technical space."
     }
 ];
 

@@ -10,7 +10,6 @@ import Education from './descriptions/education.js';
 import AboutMe from './descriptions/aboutme.js';
 import Experience from './descriptions/experience.js';
 import Projects from './descriptions/projects.js';
-import Research from './descriptions/research.js';
 import Skills from './descriptions/skills.js';
 
 const skillCategoryNames = ['Languages', 'Frameworks', 'Tools'];
@@ -42,7 +41,6 @@ export default function ZoomedContent({ label }) {
         'About Me': AboutMe ?? [],
         Experience: Experience ?? [],
         Projects: Projects ?? [],
-        Research: Research ?? [],
         Skills: (Skills ?? []).map((items, index) => ({
             title: skillCategoryNames[index] || `Category ${index + 1}`,
             items
@@ -96,7 +94,7 @@ export default function ZoomedContent({ label }) {
 
     let renderCardBody = (section, isExpanded) => {
         // helper: clip text to N words
-        const clipWords = (text, limit) => {
+        let clipWords = (text, limit) => {
             if (!text) return '';
             let words = String(text).split(/\s+/);
             if (words.length <= limit) return text;
@@ -284,23 +282,8 @@ export default function ZoomedContent({ label }) {
             );
         }
 
-        if (label === 'Research') {
-            return (
-                <div className="flex flex-col h-full">
-                    <div className={cardStyles.categoryTitle}>
-                        {section.title || 'Research'}
-                    </div>
-                    <div className={`mt-2 ${cardStyles.mainHeading}`}>{section.name || section.title}</div>
-                    {section.description ? (
-                        <div className={isExpanded ? `mt-4 ${cardStyles.descriptionExpanded}` : `mt-3 ${cardStyles.description}`}>
-                            {isExpanded ? section.description : clipWords(section.description, 150)}
-                        </div>
-                    ) : null}
-                </div>
-            );
-        }
-
         if (label === 'Skills') {
+
             return (
                 <div className="flex flex-col h-full gap-3">
                     <div className={cardStyles.mainHeading}>

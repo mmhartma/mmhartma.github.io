@@ -256,9 +256,6 @@ export default function Background(props) {
                     // top side
                     top = point.pos.y - point.radius - boxHeight - spacing - 50;
                     left = point.pos.x - boxWidth / 2;
-                    if (point.label === "Research") {
-                        top -= 12;
-                    }
                 } else {
                     // left side
                     left = point.pos.x - point.radius - boxWidth - spacing;
