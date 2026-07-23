@@ -12,7 +12,7 @@ export default function Intro(zoomedIn) {
           </h1>
 
           <p className="mb-4 text-lg font-medium text-sky-500 sm:text-xl">
-            Software Engineer
+            Systems Engineer
           </p>
 
           <p className="max-w-xl text-lg text-slate-200 sm:text-xl">

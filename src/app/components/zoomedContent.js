@@ -12,7 +12,7 @@ import Experience from './descriptions/experience.js';
 import Projects from './descriptions/projects.js';
 import Skills from './descriptions/skills.js';
 
-const skillCategoryNames = ['Languages', 'Frameworks', 'Tools'];
+const skillCategoryNames = ['Systems', 'Networking', 'Backend', 'Frontend', 'Tools'];
 
 const cardStyles = {
     // Titles and headings
@@ -27,7 +27,7 @@ const cardStyles = {
     
     // Badges/Tags
     badge: 'rounded-full border border-slate-600 bg-slate-700/70 px-2.5 py-1 text-xs text-slate-200',
-    skillBadge: 'rounded-full border border-slate-600 bg-slate-800/80 px-2.5 py-1 text-xs text-slate-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-slate-700/90 hover:text-white',
+    skillBadge: 'rounded-full border border-slate-600 bg-slate-800/80 px-2 py-0.5 text-[11px] text-slate-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-slate-700/90 hover:text-white',
     skillPanel: 'rounded-2xl border border-slate-700/70 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/60 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]',
     skillAccent: 'h-1.5 w-12 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400',
     
@@ -102,6 +102,10 @@ export default function ZoomedContent({ label }) {
         };
 
         if (label === 'Education') {
+            const courseworkItems = Array.isArray(section.coursework)
+                ? section.coursework
+                : section.coursework ? [section.coursework] : [];
+
             return (
                 <div className="flex flex-col h-full">
                     <div>
@@ -119,9 +123,31 @@ export default function ZoomedContent({ label }) {
 
                     <hr className='my-4 border-slate-600' style={{ visibility: isExpanded ? 'visible' : 'hidden' }}></hr>
 
-                    {section.description ? (
+                    {courseworkItems.length ? (
                         <div className={isExpanded ? `mt-4 ${cardStyles.descriptionExpanded} max-w-[48ch]` : `mt-3 ${cardStyles.description} max-w-[48ch]`}>
-                            {isExpanded ? section.description : clipWords(section.description, 150)}
+                            <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+                                Relevant Coursework
+                            </div>
+                            {isExpanded ? (
+                                <ul className="list-disc space-y-1 pl-5 text-slate-300">
+                                    {courseworkItems.map((item, idx) => (
+                                        <li key={`${item}-${idx}`}>{item}</li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <div className="space-y-1">
+                                    {courseworkItems.slice(0, 3).map((item, idx) => (
+                                        <div key={`${item}-${idx}`} className="truncate">
+                                            {item}
+                                        </div>
+                                    ))}
+                                    {courseworkItems.length > 3 ? (
+                                        <div className="mt-2 text-xs uppercase tracking-[0.15em] text-slate-500">
+                                            Hover to reveal more
+                                        </div>
+                                    ) : null}
+                                </div>
+                            )}
                         </div>
                     ) : null}
                 </div>
@@ -244,52 +270,99 @@ export default function ZoomedContent({ label }) {
         }
 
         if (label === 'Projects') {
+            const projects = Array.isArray(section.projects) ? section.projects : [];
+
             return (
-                <div className="flex flex-col h-full">
-                    <div className={cardStyles.mainHeading}>
-                        {section.name}
+                <div className="flex flex-col h-full min-h-0">
+                    <div className="flex items-start justify-between gap-3">
+                        <div className={cardStyles.mainHeading}>
+                            {section.title}
+                        </div>
                     </div>
-                    {section.description ? (
-                        <div className={`mt-3 ${cardStyles.description}`}>
-                            {isExpanded ? section.description : clipWords(section.description, 150)}
-                        </div>
-                    ) : null}
-                    {isExpanded && section.stack?.length ? (
-                        <div className="mt-4">
-                            <div className={cardStyles.sectionLabel}>Stack</div>
-                            <div className="mt-2 flex flex-wrap gap-2">
-                                {section.stack.map((item) => (
-                                    <span key={item} className={cardStyles.badge}>
-                                        {item}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    ) : null}
-                    {isExpanded && section.skills?.length ? (
-                        <div className="mt-4">
-                            <div className={cardStyles.sectionLabel}>Skills</div>
-                            <div className="mt-2 flex flex-wrap gap-2">
-                                {section.skills.map((item) => (
-                                    <span key={item} className={cardStyles.skillBadge}>
-                                        {item}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    ) : null}
+
+                    <div className={`mt-4 flex flex-col gap-3 ${isExpanded ? 'flex-1 min-h-0 overflow-y-auto pr-1' : ''}`}>
+                        {projects.map((project, index) => {
+                            const primaryLanguage = project.stack?.[0];
+
+                            return (
+                                <div key={`${project.name}-${index}`} className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-4">
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div className="text-sm font-semibold text-slate-100">
+                                            {project.name}
+                                        </div>
+                                        {primaryLanguage ? (
+                                            <span className="shrink-0 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">
+                                                {primaryLanguage}
+                                            </span>
+                                        ) : null}
+                                    </div>
+
+                                    <div className={`mt-2 ${cardStyles.description}`}>
+                                        {isExpanded ? (
+                                            <div className="space-y-3">
+                                                {Array.isArray(project.description) ? project.description.map((item, idx) => (
+                                                    <div key={`${item.label}-${idx}`}>
+                                                        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">
+                                                            {item.label}
+                                                        </div>
+                                                        <div className="mt-1 text-sm leading-6 text-slate-300">
+                                                            {item.text}
+                                                        </div>
+                                                    </div>
+                                                )) : null}
+                                            </div>
+                                        ) : (
+                                            <div className="space-y-1">
+                                                {Array.isArray(project.description) ? project.description.slice(0, 2).map((item, idx) => (
+                                                    <div key={`${item.label}-${idx}`}>
+                                                        <span className="font-semibold text-slate-200">{item.label}: </span>
+                                                        <span>{clipWords(item.text, 18)}</span>
+                                                    </div>
+                                                )) : null}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {isExpanded && project.stack?.length ? (
+                                        <div className="mt-3">
+                                            <div className={cardStyles.sectionLabel}>Stack</div>
+                                            <div className="mt-2 flex flex-wrap gap-2">
+                                                {project.stack.map((item) => (
+                                                    <span key={item} className={cardStyles.badge}>
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ) : null}
+
+                                    {isExpanded && project.skills?.length ? (
+                                        <div className="mt-3">
+                                            <div className={cardStyles.sectionLabel}>Skills</div>
+                                            <div className="mt-2 flex flex-wrap gap-2">
+                                                {project.skills.map((item) => (
+                                                    <span key={item} className={cardStyles.skillBadge}>
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             );
         }
 
         if (label === 'Skills') {
-
             return (
-                <div className="flex flex-col h-full gap-3">
-                    <div className={cardStyles.mainHeading}>
+                <div className="flex flex-col h-full gap-2">
+                    <div className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
                         {section.title}
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                         {section.items.map((item) => (
                             <span key={item} className={cardStyles.skillBadge}>
                                 {item}
@@ -318,8 +391,8 @@ export default function ZoomedContent({ label }) {
                         let appearState = showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2';
 
                         let cardClass = isExpanded
-                            ? `flex flex-col flex-1 rounded-xl border border-slate-700/80 bg-slate-800/80 p-8 text-slate-100 gap-6 ${baseTransition} shadow-lg overflow-hidden z-50 ${appearState}`
-                            : `flex flex-col flex-1 rounded-xl border border-slate-700/80 bg-slate-800/80 p-6 text-slate-100 gap-4 ${baseTransition} hover:-translate-y-1 hover:shadow-lg overflow-hidden ${appearState}`;
+                            ? `flex flex-col flex-1 rounded-xl border border-slate-700/80 bg-slate-800/80 p-6 text-slate-100 gap-4 ${baseTransition} shadow-lg overflow-y-auto overflow-x-hidden z-50 ${appearState}`
+                            : `flex flex-col flex-1 rounded-xl border border-slate-700/80 bg-slate-800/80 p-4 text-slate-100 gap-3 ${baseTransition} hover:-translate-y-1 hover:shadow-lg overflow-hidden ${appearState}`;
 
                         let delay = expandedIndex === null ? index * 80 : 0;
 
@@ -330,7 +403,7 @@ export default function ZoomedContent({ label }) {
                                     onMouseEnter={() => handleMouseEnter(index)}
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => setActiveImageIndex(null)}
-                                    style={{ transitionDelay: `${delay}ms`, minHeight: isExpanded ? '320px' : '150px' }}
+                                    style={{ transitionDelay: `${delay}ms`, minHeight: isExpanded ? '240px' : '112px' }}
                                 >
                                     {renderCardBody(section, isExpanded)}
                                 </div>

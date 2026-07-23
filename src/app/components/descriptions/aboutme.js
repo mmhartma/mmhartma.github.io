@@ -7,7 +7,7 @@ const age = Math.floor((Date.now() - new Date("2004-06-13").getTime()) / (1000 *
 
 const intro = {
   name: "Introduction",
-  description: `I'm a highly motivated ${age}-year-old software engineer that puts the user first while building scalable, secure, and efficient systems. I have a foundation of knowledge in computer science, particularly with systems, and I thoroughly enjoy learning everything under this umbrella of a field. I have a particular interest in cybersecurity and privacy, and I am always looking for ways to improve my skills to benefit others. I strive to make a positive impact on whatever I work on, and I am always looking for new challenges to tackle.`
+  description: `I'm a ${age}-year-old engineer with a passion for systems, focused on building scalable, secure, and efficient systems. I've always had a passion for 'why' and 'how' things work, where this was kicked into second gear when I started jailbreaking my iPod Touch at the age of 12. I later found a passion for systems when I did one of my middle school science fair projects on overclocking a CPU, which sparked my interest in tradeoffs and system design. Skipping forward to today, I have a strong foundation in systems engineering, and have become a reliable and efficient worker. I have a distinct passion for solving problems that require a deep understanding of the current system, and I enjoy the challenge of finding creative solutions to complex problems.`
 };
 
 
